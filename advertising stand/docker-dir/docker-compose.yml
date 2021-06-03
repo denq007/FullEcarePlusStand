@@ -1,0 +1,23 @@
+version: '3'
+services:
+  db:
+    image: mysql:8.0
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ecare_db
+      MYSQL_USER: bestuser
+      MYSQL_PASSWORD: bestuser
+
+ services:
+  depends_on:
+     - db
+  web:
+    image: eCare
+
+    ports:
+     - "8080:8080"
+
+
