@@ -2,6 +2,7 @@ package com.t_systems.ecare.eCare.services;
 
 import com.t_systems.ecare.eCare.DAO.*;
 import com.t_systems.ecare.eCare.DTO.ContractDTO;
+import com.t_systems.ecare.eCare.basket.BasketImpl;
 import com.t_systems.ecare.eCare.entity.Contract;
 import com.t_systems.ecare.eCare.entity.Customer;
 import com.t_systems.ecare.eCare.entity.Option;
@@ -77,6 +78,7 @@ public class ContractServiceImp implements ContractService {
         Contract contract=contractDAO.findOne(id);
         ContractDTO dto=convertToDto(contract);
         dto.setAddNameOptions(contract.getAddOptionIdList().stream().map(s->s.getName()).collect(Collectors.toSet()));
+        dto.setOptionsIds(contract.getAddOptionIdList().stream().map(s->s.getId()).collect(Collectors.toSet()));
         return dto;
     }
 
@@ -121,6 +123,19 @@ public class ContractServiceImp implements ContractService {
        if(dto.isBlockedByAdmin()||dto.isBlockedByUser())
            return true;
        return false;
+    }
+
+    @Override
+    @Transactional
+    public ContractDTO updateByCart(BasketImpl basket) {
+        Tariff tariff = tariffDAO.findOne(basket.getTariffId());
+        Contract contract = contractDAO.findOne(basket.getId());
+      /*  Customer customer = contract.getCustomerId();*/
+        contract.setTariffId(tariff);
+        contract.setAddOptionIdList(basket.getOptionsIds().stream().map(s->optionDAO.findOne(s)).collect(Collectors.toSet()));
+        contractDAO.update(contract);
+        basket.clearAll();
+        return convertToDto(contract);
     }
 
 

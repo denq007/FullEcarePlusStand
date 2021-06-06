@@ -45,8 +45,8 @@ public class TariffController {
         if(tariffDTO ==null)
         {
             model.addAttribute("message", "Tariff not found");
-          return "employee/employeeCabinet";
-         //   return "redirect:/success";
+        /*  return "employee/employeeCabinet";*/
+            return "redirect:/success";
         }
         model.addAttribute("tariff",tariffDTO);
         return "/tariff/showTariff";

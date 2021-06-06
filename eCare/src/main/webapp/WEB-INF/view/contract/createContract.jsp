@@ -17,18 +17,26 @@
 
 </header>
 <head>
-   <meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.82.0">
     <title>Checkout example · Bootstrap v5.0</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/checkout/">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/js/bootstrap-select.min.js"></script>
@@ -58,7 +66,7 @@
 
     <!-- Custom styles for this template -->
     <link href="form-validation.css" rel="stylesheet">
-    <jsp:include page="../header.jsp" />
+    <jsp:include page="../header.jsp"/>
 </head>
 <body class="bg-light">
 
@@ -68,11 +76,11 @@
 
             <h2>Your Contract</h2>
         </div>
-       <%-- <c:if test="${not empty message}"><p class="bg-danger">${message}</p></c:if>--%>
+        <%-- <c:if test="${not empty message}"><p class="bg-danger">${message}</p></c:if>--%>
         <c:if test="${not empty message}">
             <div id="error">${message}</div>
         </c:if>
-        <form:form  modelAttribute="contract" method="post" >
+        <form:form modelAttribute="contract" method="post">
         <div class="row g-5">
 
             <div class="col-md-7 col-lg-8">
@@ -82,43 +90,47 @@
 
                         <div class="col-sm-6">
                             <label for="lastName" class="form-label">Id Custumer</label>
-                            <form:input path="customerId" value="${contract.customerId}" class="form-control" id="lastName" readonly="true"/>
-                         <%--     <input type="text" name="customerId" class="form-control" id="lastName" placeholder="" value="${contract.customerId}" readonly>  --%>
+                            <form:input path="customerId" value="${contract.customerId}" class="form-control"
+                                        id="lastName" readonly="true"/>
+                                <%--     <input type="text" name="customerId" class="form-control" id="lastName" placeholder="" value="${contract.customerId}" readonly>  --%>
                         </div>
                         <sec:authorize access="hasRole('EMPLOYEE')">
-                        <div class="col-12">
-                            <label for="address" class="form-label">Blocked by Admin</label>
-                            <form:input path="blockedByAdmin" value="${contract.blockedByAdmin}" class="form-control" id="address" required="" />
-                                <%-- <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>--%>
-                            <div class="invalid-feedback">
-                                Please enter your shipping address.
+                            <div class="col-12">
+                                <label for="address" class="form-label">Blocked by Admin</label>
+                                <form:input path="blockedByAdmin" value="${contract.blockedByAdmin}"
+                                            class="form-control" id="address" required=""/>
+                                    <%-- <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>--%>
+                                <div class="invalid-feedback">
+                                    Please enter your shipping address.
+                                </div>
                             </div>
-                        </div>
                         </sec:authorize>
                         <div class="col-12">
-                            <label for="passport" class="form-label">User blocked <span class="text-muted"></span></label>
-                            <form:input path="blockedByUser" value="${contract.blockedByUser}" class="form-control" id="passport" required=""/>
+                            <label for="passport" class="form-label">User blocked <span
+                                    class="text-muted"></span></label>
+                            <form:input path="blockedByUser" value="${contract.blockedByUser}" class="form-control"
+                                        id="passport" required=""/>
                                 <%-- <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">--%>
                         </div>
 
                         <div class="col-12">
                             <label for="numbor" class="form-label">Phone Number <span class="text-muted"></span></label>
-                            <form:input path="number" value="${contract.number}" class="form-control" id="numbor" readonly="true" />
+                            <form:input path="number" value="${contract.number}" class="form-control" id="numbor"
+                                        readonly="true"/>
                                 <%-- <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">--%>
                         </div>
 
                         <div class="form-group">
-                            <label for="tr" class="form-label" >Tariffs <span class="text-muted"></span></label>
-                                <form:select path="tariffId" id="tr" class="selectpicker"
-                                             data-live-search="true" data-size="5" data-actions-box="true" data-width="75%">
-                                    <c:forEach items="${contract.allTariffs}" var="item">
-                                        <form:option label="${item.key}" value="${item.value}"/>
-                                    </c:forEach>
-                                </form:select>
-                            </div>
+                            <label for="tr" class="form-label">Tariffs: <span class="text-muted"></span></label>
+                            <form:select path="tariffId" id="tr" class="selectpicker" required="required"
+                                         data-live-search="true" data-size="5" data-actions-box="true" data-width="75%"
+                                         title="Choose one of the following...">
+                                <c:forEach items="${contract.allTariffs}" var="item">
+                                    <form:option label="${item.key}" value="${item.value}"/>
+                                </c:forEach>
+                            </form:select>
                         </div>
-
-
+                    </div>
 
 
                     <div class="form-group">
@@ -131,18 +143,17 @@
                     </div>
 
 
-
                         <form:hidden path="id" value="${contract.id}"/>
 
-                        <hr class="my-4">
-                            <%-- <c:url var="updateButton"  value="/customer/editcustomer">
-                              <c:param name="customerID" value="${customer.customerID}"/>
-                             </c:url>--%>
-                       <%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />--%>
-                        <button class="w-100 btn btn-primary btn-lg" type="submit"  >Save</button>
+                    <hr class="my-4">
+                        <%-- <c:url var="updateButton"  value="/customer/editcustomer">
+                          <c:param name="customerID" value="${customer.customerID}"/>
+                         </c:url>--%>
+                        <%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />--%>
+                    <button class="w-100 btn btn-primary btn-lg" type="submit">Save</button>
 
-                    </div>
-                    </form:form>
+            </div>
+            </form:form>
     </main>
 
     <footer class="my-5 pt-5 text-muted text-center text-small">

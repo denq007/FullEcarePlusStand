@@ -56,10 +56,10 @@
 </head>
 <body class="bg-light">
 <sec:authorize access="hasRole('EMPLOYEE')">
-    <span class="pull-right"><a href="/employee/employeecabinet" class="btn btn-info" role="button">Back</a></span>
+    <span class="pull-right"><a href="/employee/employeecabinet" class="btn btn-primary btn-lg" role="button">Back</a></span>
 </sec:authorize>
 <sec:authorize access="!hasRole('EMPLOYEE')">
-    <span class="pull-right"><a href="/customer/showcustomerinformation" class="btn btn-info" role="button">Back</a></span>
+    <span class="pull-right"><a href="/customer/showcustomerinformation" class="btn btn-primary btn-lg" role="button">Back</a></span>
 </sec:authorize>
 <div class="container">
     <main>

@@ -177,14 +177,15 @@ public class TariffServiceImpl implements TariffService{
                 .collect(Collectors.groupingBy(Option::getNumberGroup, Collectors.toList()));
        for(Integer i:map.keySet())
        {
-           if(map.get(i).size()>1)
-               b=false;
-           break;
+           if(map.get(i).size()>1&&i!=0) {
+               b = false;
+               break;
+           }
        }
            return b;
     }
-
-    private List<Option> getOptionsById(List<Integer> listId)
+    @Transactional
+    public List<Option> getOptionsById(List<Integer> listId)
     {
         List<Option> listOption=new ArrayList<>();
         for (int a:listId

@@ -48,14 +48,14 @@
     <jsp:include page="../header.jsp"/>
 </head>
 <body class="bg-light">
-<sec:authorize access="hasRole('EMPLOYEE')">
+<%--<sec:authorize access="hasRole('EMPLOYEE')">
     <span class="pull-right"><a href="/employee/employeecabinet" class="btn btn-info" role="button">Back</a></span>
 </sec:authorize>
 <sec:authorize access="!hasRole('EMPLOYEE')">
     <span class="pull-right"><a href="/customer/showcustomerinformation" class="btn btn-info" role="button">Back</a></span>
-</sec:authorize>
+</sec:authorize>--%>
 <div class="container">
-    <span class="pull-right"><a href="/" class="btn btn-info" role="button">Back</a></span>
+    <span class="pull-right"><a href="/" class="btn btn-primary btn-lg" role="button">Back</a></span>
     <h3>Client details</h3>
     <c:if test="${not empty message}">
         <div id="error">${message}</div>
@@ -125,9 +125,16 @@
                 <td>${contract.blockedByAdmin}</td>
                 <td>
                     <c:if test="${contract.blockedByUser==false && contract.blockedByAdmin==false}">
+                        <sec:authorize access="hasRole('EMPLOYEE')">
                     <form action="/contract/editcontract" method="get">
                         <input type="hidden" name="id" value=${contract.id}>
                         <input type="submit" value="Edit" class="btn btn-warning"></form>
+                        </sec:authorize>
+                        <sec:authorize access="!hasRole('EMPLOYEE')">
+                            <form action="/contract/editcontract-showbasket" method="get">
+                                <input type="hidden" name="id" value=${contract.id}>
+                                <input type="submit" value="Edit" class="btn btn-warning"></form>
+                        </sec:authorize>
                     </c:if>
                 </td>
                 <c:if test="${contract.blockedByUser && !contract.blockedByAdmin}">

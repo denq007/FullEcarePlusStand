@@ -123,4 +123,12 @@ public class OptionServiceImpl implements OptionService {
         optionDAO.update(option);
         return Optional.empty();
     }
+
+    @Override
+    @Transactional
+    public Set<String> getOptionsNameById(Set<Integer> id) {
+      return  (id.stream().map(s->optionDAO.findOne(s).getName())).collect(Collectors.toSet());
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package com.t_systems.ecare.eCare.services;
 
 import com.t_systems.ecare.eCare.DTO.ContractDTO;
+import com.t_systems.ecare.eCare.basket.BasketImpl;
 import com.t_systems.ecare.eCare.entity.Contract;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface ContractService {
     Optional<String> create(ContractDTO contractDTO);
     List<ContractDTO> showAllContracts();
     public boolean isContractBlocked(ContractDTO dto);
+
+    ContractDTO updateByCart(BasketImpl basket);
 }

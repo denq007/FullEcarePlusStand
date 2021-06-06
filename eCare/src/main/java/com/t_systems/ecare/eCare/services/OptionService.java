@@ -18,5 +18,6 @@ public interface OptionService {
     public OptionDTO findById(int id);
 
     Optional<String> update(OptionDTO dto);
+    Set<String> getOptionsNameById(Set<Integer> id);
 
 }

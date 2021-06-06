@@ -32,4 +32,5 @@ public interface TariffService {
     List<Tariff> getLast(int i);
 
     TariffDTO findById(int id);
+    public List<Option> getOptionsById(List<Integer> listId);
 }

@@ -41,7 +41,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         http
 
                 .authorizeRequests()
-                .antMatchers("/","/registration","/showallcustomer","/saveCustomer","/saveUser","/employee/**","/contract/**").permitAll()
+                .antMatchers("/","/registration","/showallcustomer","/saveCustomer","/saveUser","/employee/**","/contract/**","/show-tariff").permitAll()
                 //.anyRequest().authenticated()
               //  .antMatchers().hasRole("ANONYMOUS")
                // .anonymous()

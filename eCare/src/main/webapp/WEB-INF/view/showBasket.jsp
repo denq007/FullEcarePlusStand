@@ -44,16 +44,15 @@
 
     <!-- Custom styles for this template -->
     <link href="form-validation.css" rel="stylesheet">
-    <jsp:include page="../header.jsp" />
+    <jsp:include page="header.jsp" />
 </head>
 <body class="bg-light">
-
+<c:if test="${not empty message}">
+    <div id="error">${message}</div>
+</c:if>
 <div class="container">
-    <sec:authorize access="hasRole('EMPLOYEE')">
-        <span class="pull-right"><a href="/employee/employeecabinet" class="btn btn-primary btn-lg" role="button">Back</a></span>
-    </sec:authorize>
     <sec:authorize access="!hasRole('EMPLOYEE')">
-        <span class="pull-right"><a href="/customer/showcustomerinformation" class="btn btn-primary btn-lg" role="button">Back</a></span>
+        <span class="pull-right"><a href="/customer/showcustomerinformation" class="btn btn-info" role="button">Back</a></span>
     </sec:authorize>
     <h3>Contract details</h3>
     <table class="table table-striped">
@@ -64,52 +63,28 @@
         <tbody>
         <tr>
             <td hidden>Id:</td>
-            <td hidden>${contract.id} </td>
+            <td hidden>${basket.tariffId} </td>
         </tr>
         <tr>
-            <td>Phone number</td>
-            <td>${contract.number} </td>
-        </tr>
-        <sec:authorize access="hasRole('EMPLOYEE')">
-        <tr>
-            <td>Tariff ID</td>
-            <td>${contract.tariffId} </td>
-        </tr>
-        </sec:authorize>
-        <tr>
-            <td>Block</td>
-            <td>${contract.blockedByUser} </td>
-        </tr>
-        <sec:authorize access="hasRole('EMPLOYEE')">
-        <tr>
-            <td>Block by admin</td>
-            <td>${contract.blockedByAdmin} </td>
-        </tr>
-        </sec:authorize>
-        <tr>
-            <td>Tariff:</td>
-            <td>${contract.tariffName} </td>
+            <td>Tariff name</td>
+            <td>${basket.tariffName} </td>
         </tr>
         <tr>
             <td>Extra option's name:</td>
-            <c:forEach var="option" items="${contract.addNameOptions}">
+            <c:forEach var="option" items="${basket.addNameOptions}">
         <tr>
-            <td>${option}<td>
+            <td>${option}</td>
         </tr>
             </c:forEach>
         </tr>
 
         </tbody>
     </table>
-    <form action="/show-tariff" method="get">
-        <input type="hidden" name="name" value=${contract.tariffName}>
-    <input type="submit" value="Show tariff and options" class="btn btn-success"/></form>
-
-   <%-- <form action="createContract" method="get">
-        <input type="hidden" name="customerID" value=${customer.id}>
-        <input type="submit" value="Create contract" class="btn btn-warning" ></form>
-    <br>--%>
-
+    <form action="/contract/savecontract" method="post">
+        <input type="hidden" name="id" value=${basket.id}>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <button id="button" class="w-100 btn btn-primary btn-lg" type="submit">Save</button>
+    </form>
 </div>
 </body>
 </html>
