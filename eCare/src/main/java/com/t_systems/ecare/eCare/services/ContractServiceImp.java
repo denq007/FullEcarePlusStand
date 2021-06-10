@@ -36,6 +36,7 @@ public class ContractServiceImp implements ContractService {
     PhoneNumberDAO phoneNumberDAO;
     @Autowired
     OptionService optionService;
+
     @Override
     public ContractDTO convertToDto(Contract contract) {
         return modelMapper.map(contract, ContractDTO.class);
@@ -52,21 +53,20 @@ public class ContractServiceImp implements ContractService {
     public Optional<String> update(ContractDTO dto) {
         Tariff tariff = tariffDAO.findOne(dto.getTariffId());
         Contract contract = contractDAO.findOne(dto.getId());
-        Optional<String> error=optionService.checkCompatibilityOptions(dto.getOptionsIds(),tariff.getOptionIdList(),contract.getAddOptionIdList());
-        if(error.isPresent())
-        {
+        Optional<String> error = optionService.checkCompatibilityOptions(dto.getOptionsIds(), tariff.getOptionIdList(), contract.getAddOptionIdList());
+        if (error.isPresent()) {
             return error;
         }
-        dto.setAddNameOptions(optionService.deleteOptionsAvailableTariffAnDADDNameOption(dto.getOptionsIds(),tariff.getOptionIdList()));
+        dto.setAddNameOptions(optionService.deleteOptionsAvailableTariffAnDADDNameOption(dto.getOptionsIds(), tariff.getOptionIdList()));
         Customer customer = contract.getCustomerId();
         contract = convertToEntity(dto);
         contract.setCustomerId(customer);
         contract.setTariffId(tariff);
         contract.setBlockedByUser(dto.isBlockedByUser());
         contract.setBlockedByAdmin(dto.isBlockedByAdmin());
-        Set<Option> set=contract.getAddOptionIdList();
-        Set<Integer>wer= dto.getOptionsIds();
-        set.addAll(dto.getOptionsIds().stream().map(s-> optionDAO.findOne(s)).collect(Collectors.toSet()));
+        Set<Option> set = contract.getAddOptionIdList();
+        Set<Integer> wer = dto.getOptionsIds();
+        set.addAll(dto.getOptionsIds().stream().map(s -> optionDAO.findOne(s)).collect(Collectors.toSet()));
         contract.setAddOptionIdList(set);
         contractDAO.update(contract);
         return Optional.empty();
@@ -75,10 +75,10 @@ public class ContractServiceImp implements ContractService {
     @Override
     @Transactional
     public ContractDTO getDto(int id) {
-        Contract contract=contractDAO.findOne(id);
-        ContractDTO dto=convertToDto(contract);
-        dto.setAddNameOptions(contract.getAddOptionIdList().stream().map(s->s.getName()).collect(Collectors.toSet()));
-        dto.setOptionsIds(contract.getAddOptionIdList().stream().map(s->s.getId()).collect(Collectors.toSet()));
+        Contract contract = contractDAO.findOne(id);
+        ContractDTO dto = convertToDto(contract);
+        dto.setAddNameOptions(contract.getAddOptionIdList().stream().map(s -> s.getName()).collect(Collectors.toSet()));
+        dto.setOptionsIds(contract.getAddOptionIdList().stream().map(s -> s.getId()).collect(Collectors.toSet()));
         return dto;
     }
 
@@ -100,12 +100,11 @@ public class ContractServiceImp implements ContractService {
         // contract.setCustomerId(customerService.convertToEntity(customerService.findById(contractDTO.getCustomerId())));
         contract.setCustomerId(customerDAO.findOne(contractDTO.getCustomerId()));
         contract.setNumber(contractDTO.getNumber());
-        Optional<String> error=optionService.checkCompatibilityOptions(contractDTO.getOptionsIds(),tariff.getOptionIdList(),contract.getAddOptionIdList());
-        if(error.isPresent())
-        {
+        Optional<String> error = optionService.checkCompatibilityOptions(contractDTO.getOptionsIds(), tariff.getOptionIdList(), contract.getAddOptionIdList());
+        if (error.isPresent()) {
             return error;
         }
-        contract.setAddOptionIdList(contractDTO.getOptionsIds().stream().map(s-> optionDAO.findOne(s)).collect(Collectors.toSet()));
+        contract.setAddOptionIdList(contractDTO.getOptionsIds().stream().map(s -> optionDAO.findOne(s)).collect(Collectors.toSet()));
         contractDTO.setId(contractDAO.save(contract));
         contractDTO.setTariffName(tariff.getName());
         return Optional.empty();
@@ -114,15 +113,15 @@ public class ContractServiceImp implements ContractService {
     @Override
     @Transactional
     public List<ContractDTO> showAllContracts() {
-        List<Contract> list=contractDAO.findAll();
-        return list.stream().map(s->convertToDto(s)).collect(Collectors.toList());
+        List<Contract> list = contractDAO.findAll();
+        return list.stream().map(s -> convertToDto(s)).collect(Collectors.toList());
     }
 
     @Override
     public boolean isContractBlocked(ContractDTO dto) {
-       if(dto.isBlockedByAdmin()||dto.isBlockedByUser())
-           return true;
-       return false;
+        if (dto.isBlockedByAdmin() || dto.isBlockedByUser())
+            return true;
+        return false;
     }
 
     @Override
@@ -130,9 +129,9 @@ public class ContractServiceImp implements ContractService {
     public ContractDTO updateByCart(BasketImpl basket) {
         Tariff tariff = tariffDAO.findOne(basket.getTariffId());
         Contract contract = contractDAO.findOne(basket.getId());
-      /*  Customer customer = contract.getCustomerId();*/
+        /*  Customer customer = contract.getCustomerId();*/
         contract.setTariffId(tariff);
-        contract.setAddOptionIdList(basket.getOptionsIds().stream().map(s->optionDAO.findOne(s)).collect(Collectors.toSet()));
+        contract.setAddOptionIdList(basket.getOptionsIds().stream().map(s -> optionDAO.findOne(s)).collect(Collectors.toSet()));
         contractDAO.update(contract);
         basket.clearAll();
         return convertToDto(contract);

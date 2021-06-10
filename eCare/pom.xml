@@ -157,12 +157,12 @@
         </dependency>
         <!-- testing -->
 
-        <dependency>
+   <!--     <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <version>1.10.19</version>
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
         <!-- testing -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -214,8 +214,21 @@
             <artifactId>jackson-core</artifactId>
             <version>2.12.3</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.11.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>3.11.0</version>
+            <scope>test</scope>
+        </dependency>
 
-        <!-- end logging -->
 
     </dependencies>
 
