@@ -38,6 +38,16 @@ public class TariffDAOImpl extends GenericDAO<Tariff> implements TariffDAO{
                     .getResultList().isEmpty();
     }
 
+    @Override
+    public List<Tariff> findAll(int page) {
+        return sessionFactory.getCurrentSession().createQuery("from Tariff").setFirstResult(10*(page-1)).setMaxResults(10).list();
+    }
+
+    @Override
+    public int tariffsCount() {
+        return sessionFactory.getCurrentSession().createQuery("select count(*) from Tariff",Number.class).getSingleResult().intValue();
+    }
+
 
     @Autowired
     public void setClass() {

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +28,12 @@
     </style>
 </head>
 <body class="bg-light">
-<span class="pull-right"><a href="/" class="btn btn-info" role="button">Back</a></span>
+<sec:authorize access="hasRole('EMPLOYEE')">
+    <span class="pull-right"><a href="/employee/employeecabinet" class="btn btn-primary btn-lg" role="button">Back</a></span>
+</sec:authorize>
+<sec:authorize access="!hasRole('EMPLOYEE')">
+    <span class="pull-right"><a href="/customer/showcustomerinformation" class="btn btn-primary btn-lg" role="button">Back</a></span>
+</sec:authorize>
 <h2>All Tarifs</h2>
 <br>
 <c:if test="${not empty message}">
@@ -69,7 +75,12 @@
     </tr>
 
 </table>
-
+<c:forEach begin="1" end="${pagesCount}" step="1" varStatus="i">
+    <c:url value="show-all-tariffs" var="url">
+        <c:param name="page" value="${i.index}"/>
+    </c:url>
+    <a href="${url}">${i.index}</a>
+</c:forEach>
 </body>
 
 </html>

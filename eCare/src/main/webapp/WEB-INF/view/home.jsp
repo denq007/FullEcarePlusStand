@@ -47,13 +47,10 @@
 <div class="container py-3">
     <header class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
         <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" class="me-2" viewBox="0 0 118 94" role="img">
-                <title>Bootstrap</title>
-                <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z"
-                      fill="currentColor"></path>
-            </svg>
-            <span class="fs-4">Pricing example</span>
+            <img src="/resources/image/img.png" width="40" height="32" class="me-2" viewBox="0 0 118 94" role="img">
+
+
+            <span class="fs-4">EcareTelecom</span>
         </a>
 
         <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
@@ -89,16 +86,16 @@
             <div class="col">
                 <div class="card mb-4 rounded-3 shadow-sm">
                     <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">First</h4>
+                        <h4 class="my-0 fw-normal">HotRed</h4>
                     </div>
                     <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
+                        <h1 class="card-title pricing-card-title">$12,56<small class="text-muted fw-light">/month</small></h1>
                         <ul class="list-unstyled mt-3 mb-4">
-                            <li>100 GB</li>
-                            <li>100 minutes</li>
-                            <li>Free AON</li>
+                            <li>200 GB</li>
+                            <li>500 minutes</li>
+                            <li>3G, 4G, 5G, AON FREE</li>
                         </ul>
-                        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+                        <span class="pull-right"><a href="show-tariff?name=HotRed" class="w-100 btn btn-lg btn-primary" role="button"> Show </a></span>
                     </div>
                 </div>
             </div>
@@ -108,13 +105,12 @@
                         <h4 class="my-0 fw-normal">Second</h4>
                     </div>
                     <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$15<small class="text-muted fw-light">/mo</small></h1>
+                        <h1 class="card-title pricing-card-title">$5.5<small class="text-muted fw-light">/month</small></h1>
                         <ul class="list-unstyled mt-3 mb-4">
-                            <li>Unlimited calls</li>
-                            <li>Unlimited GB</li>
-                            <li>Free AON</li>
+                            <li>100 GB</li>
+                            <li>3G, 4G, 5G Free</li>
                         </ul>
-                        <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
+                        <span class="pull-right"><a href="show-tariff?name=HotBlack" class="w-100 btn btn-lg btn-primary" role="button"> Show </a></span>
                     </div>
                 </div>
             </div>
@@ -124,11 +120,11 @@
                         <h4 class="my-0 fw-normal">third</h4>
                     </div>
                     <div class="card-body">
-                        <h1 class="card-title pricing-card-title">$29<small class="text-muted fw-light">/mo</small></h1>
+                        <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/month</small></h1>
                         <ul class="list-unstyled mt-3 mb-4">
                             <li>Choose only what you need</li>
                         </ul>
-                        <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button>
+                        <span class="pull-right"><a href="show-tariff?name=HotBlue" class="w-100 btn btn-lg btn-primary" role="button"> Show </a></span>
                     </div>
                 </div>
             </div>

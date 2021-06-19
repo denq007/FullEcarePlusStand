@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -17,7 +18,7 @@ import java.util.Optional;
 public class TariffController {
     @Autowired
     TariffService tariffService;
-
+    private int page;
     @GetMapping("/employee/create-tariff")
     public String createTariff(Model model)
     {
@@ -102,13 +103,27 @@ public class TariffController {
     }
 
 
-    @RequestMapping("show-all-tariffs")
+/*    @RequestMapping("show-all-tariffs")
     public String showAllTariffs(Model model)
     {
         List<TariffDTO> tariffDTOList=tariffService.showAllTariffsForEmployee();
         model.addAttribute("allTarifs",tariffDTOList);
         return "tariff/showAllTariffs";
+    }*/
+    @RequestMapping("/show-all-tariffs")
+    public ModelAndView showAllTariffsPagination(@RequestParam(defaultValue = "1") int page)
+    {
+        ModelAndView model = new ModelAndView();
+        List<TariffDTO> tariffDTOList=tariffService.findAll(page);
+        int tariffsCount=tariffService.tariffsCount();
+        int pagesCount = (tariffsCount + 9)/10;
+        this.page = page;
+        model.setViewName("tariff/showAllTariffs");
+        model.addObject("allTarifs",tariffDTOList);
+        model.addObject("page", page);
+        model.addObject("tariffsCount",tariffsCount);
+        model.addObject("pagesCount", pagesCount);
+        return model;
     }
-
 
 }

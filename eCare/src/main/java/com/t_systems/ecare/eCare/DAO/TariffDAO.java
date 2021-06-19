@@ -11,4 +11,6 @@ public interface TariffDAO extends IGenericDAO<Tariff>{
 
     boolean isUsed(int id);
 
+    public List<Tariff>findAll(int page);
+    public int tariffsCount();
 }

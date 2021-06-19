@@ -72,9 +72,11 @@
 
 <div class="container">
     <main>
+        <sec:authorize access="hasRole('EMPLOYEE')">
+            <span class="pull-right"><a href="/employee/employeecabinet" class="btn btn-primary btn-lg" role="button">Back</a></span>
+        </sec:authorize>
         <div class="py-5 text-center">
 
-            <h2>Your Contract</h2>
         </div>
         <%-- <c:if test="${not empty message}"><p class="bg-danger">${message}</p></c:if>--%>
         <c:if test="${not empty message}">

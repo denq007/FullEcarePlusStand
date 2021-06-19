@@ -121,8 +121,22 @@
             <tr>
                 <td>${contract.number} </td>
                 <td>${contract.tariffId.name}</td>
-                <td>${contract.blockedByUser}</td>
-                <td>${contract.blockedByAdmin}</td>
+                <td>
+                    <c:if test="${contract.blockedByUser==true}">
+                        This number is blocked by you</td>
+                </c:if>
+                <c:if test="${contract.blockedByUser==false}">
+                    </td>
+                </c:if>
+                       </td>
+                <td>
+                    <c:if test="${contract.blockedByAdmin==true}">
+                        Number is blocked</td>
+                </c:if>
+                <c:if test="${contract.blockedByAdmin==false}">
+                    </td>
+                </c:if>
+
                 <td>
                     <c:if test="${contract.blockedByUser==false && contract.blockedByAdmin==false}">
                         <sec:authorize access="hasRole('EMPLOYEE')">

@@ -122,7 +122,7 @@ public class TariffServiceImpl implements TariffService {
     }
 
     /**
-     * Requests all tariffs in (@link TarifDAO) database (including-unused tariffs)
+     * Requests all tariffs in (@link TarifDAO) database (no unused tariffs)
      *
      * @return list of {@code TariffDTO}
      */
@@ -134,7 +134,7 @@ public class TariffServiceImpl implements TariffService {
     }
 
     /**
-     * Requests all tariffs in (@link TarifDAO) database (no unused tariffs)
+     * Requests all tariffs in (@link TarifDAO) database (including-unused tariffs)
      *
      * @return list of {@code TariffDTO}
      */
@@ -143,6 +143,8 @@ public class TariffServiceImpl implements TariffService {
     public List<TariffDTO> showAllTariffsForEmployee() {
         return tariffDAO.findAll().stream().map(s -> convertToDto(s)).collect(Collectors.toList());
     }
+
+
 
     /**
      * Requests last added tariffs in (@link TarifDAO) database
@@ -271,6 +273,27 @@ public class TariffServiceImpl implements TariffService {
             listOption.add(optionDAO.findOne(a));
         }
         return listOption;
+    }
+
+    /**
+     * For pagination
+     * @param page
+     * @return
+     */
+    @Override
+    @Transactional
+    public List<TariffDTO> findAll(int page) {
+        return tariffDAO.findAll(page).stream().map(s -> convertToDto(s)).collect(Collectors.toList());
+    }
+
+    /**
+     * For pagination
+     * @return
+     */
+    @Override
+    @Transactional
+    public int tariffsCount() {
+        return tariffDAO.tariffsCount();
     }
 
 }

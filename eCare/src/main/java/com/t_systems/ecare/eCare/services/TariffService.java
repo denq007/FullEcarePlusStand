@@ -10,7 +10,9 @@ import java.util.Set;
 
 public interface TariffService {
     public Optional<String> saveTariff(TariffDTO tariffDTO);
+
     public Tariff convertToEntity(TariffDTO tariffDTO);
+
     public TariffDTO convertToDto(Tariff tariff);
 
     void showAllOptions(TariffDTO tariffDTO);
@@ -32,5 +34,10 @@ public interface TariffService {
     List<Tariff> getLast(int i);
 
     TariffDTO findById(int id);
+
     public List<Option> getOptionsById(List<Integer> listId);
+
+    public List<TariffDTO> findAll(int page);
+
+    public int tariffsCount();
 }
