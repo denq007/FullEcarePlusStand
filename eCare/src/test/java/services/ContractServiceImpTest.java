@@ -100,7 +100,9 @@ class ContractServiceImpTest {
     void updateOptionСompatibilityError() {
 
         assertEquals(optionService.checkCompatibilityOptions(anySet(), anyList(), anySet()).isPresent(), false);
-
+        Optional<String> e =contractServiceImp.update(contractDTO);
+        assertFalse(e.isPresent());
+       // verify(contractServiceImp.update())
     }
 
     @Test

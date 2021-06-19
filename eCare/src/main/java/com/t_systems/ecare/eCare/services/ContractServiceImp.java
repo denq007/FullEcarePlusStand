@@ -37,17 +37,35 @@ public class ContractServiceImp implements ContractService {
     @Autowired
     OptionService optionService;
 
+    /**
+     * Transforms the Contract to ContractDTO
+     *
+     * @param contract database {@code Contract} object
+     * @return contractDTO (@code ContractDTO) data transfer object contains option properties
+     */
     @Override
     public ContractDTO convertToDto(Contract contract) {
         return modelMapper.map(contract, ContractDTO.class);
     }
 
+    /**
+     * Transforms the ContractDTO to Contract
+     *
+     * @param contractDTO data transfer object
+     * @return contract (@code Contract)
+     */
     @Override
     public Contract convertToEntity(ContractDTO contractDTO) {
         Contract contract = modelMapper.map(contractDTO, Contract.class);
         return contract;
     }
 
+    /**
+     * Update all fields in corresponding {@code Contract} with field values from data transfer object
+     *
+     * @param dto data transfer object contains contract id and properties
+     * @return either empty Optional if contract is successfully updated or error message if not
+     */
     @Override
     @Transactional
     public Optional<String> update(ContractDTO dto) {
@@ -72,6 +90,12 @@ public class ContractServiceImp implements ContractService {
         return Optional.empty();
     }
 
+    /**
+     * Build data transfer object for {@code Contract} with specific id, including fields of type collection (initialized)
+     *
+     * @param id database id of desired {@code Contract} object
+     * @return {@code ContractDTO} object contains contract properties
+     */
     @Override
     @Transactional
     public ContractDTO getDto(int id) {
@@ -82,6 +106,11 @@ public class ContractServiceImp implements ContractService {
         return dto;
     }
 
+    /**
+     * Add additional data into contract data transfer object
+     *
+     * @param dto
+     */
     public void showTariffandOptions(ContractDTO dto) {
         Map<String, Integer> mapOptions = dto.getAllOptions();
         optionDAO.getAllOptionNamesAndIds().forEach(array -> mapOptions.put((String) array[1], (Integer) array[0]));
@@ -89,6 +118,12 @@ public class ContractServiceImp implements ContractService {
         tariffDAO.getAllTariffNamesAndIds().forEach(array -> mapTariffs.put((String) array[1], (Integer) array[0]));
     }
 
+    /**
+     * Create new {@code Contract} based on dto properties
+     *
+     * @param contractDTO data transfer object contains required properties
+     * @return empty Optional if contract is successfully created or error message if not
+     */
     @Override
     @Transactional
     public Optional<String> create(ContractDTO contractDTO) {
@@ -110,6 +145,11 @@ public class ContractServiceImp implements ContractService {
         return Optional.empty();
     }
 
+    /**
+     * Requests all contracts in (@link ContractDAO) database
+     *
+     * @return list of {@code ContractDTO}
+     */
     @Override
     @Transactional
     public List<ContractDTO> showAllContracts() {
@@ -117,6 +157,12 @@ public class ContractServiceImp implements ContractService {
         return list.stream().map(s -> convertToDto(s)).collect(Collectors.toList());
     }
 
+    /**
+     * Checking the contract status (true or false)
+     *
+     * @param dto
+     * @return boolean
+     */
     @Override
     public boolean isContractBlocked(ContractDTO dto) {
         if (dto.isBlockedByAdmin() || dto.isBlockedByUser())
@@ -124,12 +170,17 @@ public class ContractServiceImp implements ContractService {
         return false;
     }
 
+    /**
+     * Update all fields in corresponding {@code ContractDTO} with field values from data transfer object
+     *
+     * @param basket data transfer object
+     * @return {@code ContractDTO} object contains contract properties
+     */
     @Override
     @Transactional
     public ContractDTO updateByCart(BasketImpl basket) {
         Tariff tariff = tariffDAO.findOne(basket.getTariffId());
         Contract contract = contractDAO.findOne(basket.getId());
-        /*  Customer customer = contract.getCustomerId();*/
         contract.setTariffId(tariff);
         contract.setAddOptionIdList(basket.getOptionsIds().stream().map(s -> optionDAO.findOne(s)).collect(Collectors.toSet()));
         contractDAO.update(contract);

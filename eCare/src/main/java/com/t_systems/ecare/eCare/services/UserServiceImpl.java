@@ -32,47 +32,87 @@ public class UserServiceImpl implements UserService {
     @Autowired
     ContractDao contractDao;
 
+    /**
+     * Transforms the User to UserDTO
+     *
+     * @param user database {@code User} object
+     * @return userDTO (@code UserDTO)
+     */
     public UserDTO convertToDto(User user) {
         return modelMapper.map(user, UserDTO.class);
     }
 
+    /**
+     * Transforms the UserDTO to User
+     *
+     * @param userDto data transfer object
+     * @return
+     */
     public User convertToEntity(UserDTO userDto) {
         User userEntity = modelMapper.map(userDto, User.class);
         userEntity.setPassword(passwordEncoder.encode(userDto.getUserPassword()));
         return userEntity;
     }
 
+    /**
+     * Set block property of specific contract to true with role EMPLOYEE
+     *
+     * @param id id of {@code Contract} to block
+     * @return id of {@code Contract} to block
+     */
     @Override
     public int blockByEmployee(int id) {
-        Contract contract=contractDao.findOne(id);
+        Contract contract = contractDao.findOne(id);
         contract.setBlockedByAdmin(true);
         contractDao.update(contract);
         return contract.getCustomerId().getId();
     }
 
+    /**
+     * Set block property of specific contract to false with role EMPLOYEE
+     *
+     * @param id id of {@code Contract} to unblock
+     * @return id of {@code Contract} to unblock
+     */
     @Override
     public int unblockByEmployee(int id) {
-        Contract contract=contractDao.findOne(id);
+        Contract contract = contractDao.findOne(id);
         contract.setBlockedByAdmin(false);
         contractDao.update(contract);
         return contract.getCustomerId().getId();
     }
 
+    /**
+     * Set block property of specific contract to true with role CUSTOMER;
+     *
+     * @param id id of {@code Contract} to block
+     */
     @Override
     public void blockByCustomer(int id) {
-        Contract contract=contractDao.findOne(id);
+        Contract contract = contractDao.findOne(id);
         contract.setBlockedByUser(true);
         contractDao.update(contract);
     }
 
+    /**
+     * Set block property of specific contract to false with role CUSTOMER;
+     *
+     * @param id id of {@code Contract}  to unblock
+     */
     @Override
     public void unblockByCustomer(int id) {
-        Contract contract=contractDao.findOne(id);
+        Contract contract = contractDao.findOne(id);
         contract.setBlockedByUser(false);
         contractDao.update(contract);
     }
 
 
+    /**
+     * Save new {@code User} based on dto properties with role CUSTOMER.User must be unique.
+     *
+     * @param user dto data transfer object contains required properties
+     * @return empty Optional if user is successfully created or error message if not
+     */
     @Transactional
     public Optional<String> saveUser(UserDTO user) {
         User fromDB = userDao.getUserByUsername(user.getUserLogin());
@@ -91,10 +131,22 @@ public class UserServiceImpl implements UserService {
         return Optional.empty();
     }
 
+    /**
+     * User Search based user
+     *
+     * @param user
+     */
     public void findUserByName(User user) {
         User fromDB = userDao.getUserByUsername(user.getLogin());
     }
 
+    /**
+     * User authentication using the method - HttpServletRequest.login()
+     *
+     * @param request
+     * @param username
+     * @param password
+     */
     public void authWithHttpServletRequest(HttpServletRequest request, String username, String password) {
         try {
             request.login(username, password);

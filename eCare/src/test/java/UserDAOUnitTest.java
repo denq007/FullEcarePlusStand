@@ -1,4 +1,5 @@
 /*
+
 import com.t_systems.ecare.eCare.configuration.MyConfig;
 import com.t_systems.ecare.eCare.DAO.UserDao;
 import com.t_systems.ecare.eCare.entity.User;
@@ -26,11 +27,15 @@ public class UserDAOUnitTest {
     @Autowired
     UserDao userDAO = new UserDao();
 
+
+    */
+/* *//*
+
+
     */
 /**
      * without database, only in session
      *//*
-
 
     @Test
     public void userDAOCreatePositivAndDelete() {
@@ -45,4 +50,5 @@ public class UserDAOUnitTest {
     }
 
 }
+
 */

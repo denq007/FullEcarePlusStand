@@ -21,18 +21,28 @@ public class RequiredOptionServiceImpl implements RequiredOptionService{
     @Autowired
     RequiredOptionDAO requiredOptionDAO;
 
+    /**
+     * Transforms the RequiredOption to RequiredOptionDTO
+     * @param requiredOption database {@code RequiredOption} object
+     * @return requiredOptionDTO (@code ContractDTO) data transfer object contains option properties
+     */
     @Override
     public RequiredOptionDTO convertToDto(RequiredOption requiredOption) {
         RequiredOptionDTO requiredOptionDTO=modelMapper.map(requiredOption,RequiredOptionDTO.class);
         return requiredOptionDTO;
     }
 
-    @Override
+
+    /*@Override
     public RequiredOption convertToEntity(RequiredOptionDTO requiredOptionDTO) {
         RequiredOption requiredOption=modelMapper.map(requiredOptionDTO,RequiredOption.class);
         return null;
-    }
+    }*/
 
+    /**
+     * Requests all requiredoptions in (@link requiredOptionDAO) database.
+     * @return map of {@code Integer,@Code RequiredOptionDTO},map will contain a list of options and their group numbers
+     */
     public Map<Integer, List<RequiredOptionDTO>> findAllRequiredOption()
     {
         Map<Integer, List<RequiredOptionDTO>> mapOptions = new HashMap<>();

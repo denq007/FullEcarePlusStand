@@ -8,6 +8,6 @@ import java.util.Map;
 
 public interface RequiredOptionService{
     public RequiredOptionDTO convertToDto(RequiredOption requiredOption);
-    public RequiredOption convertToEntity(RequiredOptionDTO requiredOptionDTO);
+  //  public RequiredOption convertToEntity(RequiredOptionDTO requiredOptionDTO);
     public Map<Integer, List<RequiredOptionDTO>> findAllRequiredOption();
 }

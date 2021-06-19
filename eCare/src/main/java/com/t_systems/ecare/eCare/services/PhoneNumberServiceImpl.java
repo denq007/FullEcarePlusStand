@@ -11,6 +11,10 @@ public class PhoneNumberServiceImpl implements PhoneNumberService{
     @Autowired
     PhoneNumberDAO phoneNumberDAO;
 
+    /**
+     * Create new {@code PhoneNumber}
+     * @return phone number (@code long) (will be unique)
+     */
     @Override
     @Transactional
     public long createphoneNumber() {

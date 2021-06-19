@@ -20,12 +20,18 @@ public class HotTariffServiceImpl implements HotTariffService {
     MessageSender messageSender;
     @Autowired
     TariffService tariffService;
-
+    /**
+     * Send json representation of hot tariffs info into jms queue
+     */
     @Override
     public void sendMessage() {
         messageSender.sendMessage(build());
     }
 
+    /**
+     *  Requests for the last three tariffs and their conversion to (@code Gson)
+     * @return string (@code String)
+     */
     private String build() {
         List<Tariff> tariffList = tariffService.getLast(3);
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();

@@ -21,6 +21,14 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     UserDao userDao;
 
+    /**
+     * Return UserDetails of a user specified by username if such a user exists,
+     * contains his granted authorities, login and hashed password
+     *
+     * @param s username of desired user
+     * @return UserDetails object
+     * @throws UsernameNotFoundException if there is no user with such a username
+     */
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {

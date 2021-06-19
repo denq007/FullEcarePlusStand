@@ -27,15 +27,31 @@ public class CustomerServiceImpl implements CustomerService{
     @Autowired
     ContractDao contractDao;
 
+    /**
+     * Transforms the Customer to CustomerDTO
+     * @param customer database {@code Customer} object
+     * @return сustomerDTO (@code CustomerDTO)
+     */
     public CustomerDTO convertToDto(Customer customer) {
         return modelMapper.map(customer, CustomerDTO.class);
     }
+
+    /**
+     * Transforms the CustomerDTO to Customer
+     * @param customerDTO  data transfer object
+     * @return customer (@code Customer)
+     */
     public Customer convertToEntity(CustomerDTO customerDTO) {
         Customer customer = modelMapper.map(customerDTO, Customer.class);
        /* userEntity.setPassword(passwordEncoder.encode(userDto.getPassword()));*/
         return customer;
     }
 
+    /**
+     * Requests customer by phone number
+     * @param phone
+     * @return сustomerDTO (@CustomerDTO)
+     */
     @Override
     @Transactional
     public CustomerDTO findByPhoneNumber(String phone) {
@@ -48,6 +64,11 @@ public class CustomerServiceImpl implements CustomerService{
         return  сustomerDTO;}
     }
 
+    /**
+     * Requests customer by user's login
+     * @param username
+     * @return сustomerDTO (@CustomerDTO)
+     */
     @Transactional
     public CustomerDTO getCustomerDTOByEmailUser(String username){
         CustomerDTO сustomerDTO=convertToDto(customerDAO.getCustomerIDBYUserID(
@@ -56,7 +77,11 @@ public class CustomerServiceImpl implements CustomerService{
         return сustomerDTO;
     }
 
-
+    /**
+     * Update all fields in corresponding {@code Customer} with field values from data transfer object
+     * @param dto data transfer object contains contract id and properties
+     * @return either empty Optional if contract is successfully updated or error message if not
+     */
     @Override
     @Transactional
     public Optional<String> update(CustomerDTO dto) {
@@ -68,6 +93,11 @@ public class CustomerServiceImpl implements CustomerService{
         return Optional.empty();
     }
 
+    /**
+     * Requests customer by id
+     * @param id database id of desired {@code Customer} object
+     * @return {@code CustomerDTO} object contains contract properties.If the customer is not found it returns null
+     */
     @Override
     @Transactional
     public CustomerDTO findById(int id) {
