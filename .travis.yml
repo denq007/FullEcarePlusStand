@@ -1,3 +1,11 @@
 language: java
 jdk:
   - oraclejdk14
+    cache:
+      directories:
+        - $HOME/.m2
+
+    script:
+      - java --version
+      - ./mvnw clean install
+      - ./mvnw test
