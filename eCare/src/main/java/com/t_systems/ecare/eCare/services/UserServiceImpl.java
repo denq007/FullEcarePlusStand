@@ -8,6 +8,7 @@ import com.t_systems.ecare.eCare.entity.Contract;
 import com.t_systems.ecare.eCare.entity.Customer;
 import com.t_systems.ecare.eCare.entity.Role;
 import com.t_systems.ecare.eCare.entity.User;
+import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,7 +32,7 @@ public class UserServiceImpl implements UserService {
     PasswordEncoder passwordEncoder;
     @Autowired
     ContractDao contractDao;
-
+    private static final Logger logger = org.apache.log4j.Logger.getLogger(UserServiceImpl.class);
     /**
      * Transforms the User to UserDTO
      *
@@ -137,7 +138,7 @@ public class UserServiceImpl implements UserService {
      * @param user
      */
     public void findUserByName(User user) {
-        User fromDB = userDao.getUserByUsername(user.getLogin());
+        userDao.getUserByUsername(user.getLogin());
     }
 
     /**
@@ -151,7 +152,7 @@ public class UserServiceImpl implements UserService {
         try {
             request.login(username, password);
         } catch (ServletException e) {
-            System.out.println("Error while login " + e.getMessage());
+            logger.info("Error while login " + e.getMessage());
         }
     }
 }

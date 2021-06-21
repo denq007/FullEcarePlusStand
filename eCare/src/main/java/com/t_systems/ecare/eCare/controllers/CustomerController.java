@@ -21,6 +21,7 @@ import java.util.Optional;
 public class CustomerController {
 
 
+    public static final String CUSTOMER = "customer";
     @Autowired
     CustomerService customerService;
     @Autowired
@@ -30,7 +31,7 @@ public class CustomerController {
     {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         CustomerDTO customerDTO=customerService.getCustomerDTOByEmailUser(auth.getName());
-         model.addAttribute("customer",customerDTO);
+         model.addAttribute(CUSTOMER,customerDTO);
         return "customer/showCustomer";
     }
     @GetMapping("/showcustomer")
@@ -42,7 +43,7 @@ public class CustomerController {
             model.addAttribute("message", "Customer not found");
             return "employee/employeeCabinet";
         }
-        model.addAttribute("customer",customerDTO);
+        model.addAttribute(CUSTOMER,customerDTO);
         return "customer/showCustomer";
     }
 
@@ -50,15 +51,15 @@ public class CustomerController {
     @GetMapping("/editcustomer")
     public String editClient(@RequestParam("customerID") int id, Model model) {
 
-        model.addAttribute("customer",customerService.findById(id));
+        model.addAttribute(CUSTOMER,customerService.findById(id));
         return "customer/createCustomer";
     }
 
     @PostMapping("/editcustomer")
-    public String editClient(@ModelAttribute("customer")@Valid CustomerDTO customerDTO , Model model ) {
+    public String editClient(@ModelAttribute(CUSTOMER)@Valid CustomerDTO customerDTO , Model model ) {
         Optional<String> error = customerService.update(customerDTO);
         if (error.isPresent()) {
-            model.addAttribute("customer", customerDTO);
+            model.addAttribute(CUSTOMER, customerDTO);
             return "customer/createCustomer";
         }
         model.addAttribute("id",customerDTO.getId());

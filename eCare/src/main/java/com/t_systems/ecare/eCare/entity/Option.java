@@ -26,7 +26,7 @@ public class Option {
     private double price;
     @Column(name = "connection_cost")
     private double connectionCost;
-    @ManyToMany(cascade = CascadeType.ALL/*{CascadeType.PERSIST,CascadeType.MERGE, CascadeType.REFRESH,CascadeType.DETACH}*/,fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name = "tariff_option",joinColumns = @JoinColumn(name="option_id"),
             inverseJoinColumns = @JoinColumn(name = "tariff_id")
     )

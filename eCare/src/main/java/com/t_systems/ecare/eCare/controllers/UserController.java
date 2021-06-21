@@ -24,7 +24,6 @@ import java.util.Optional;
 
 
 @Controller
-//@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -80,22 +79,4 @@ public class UserController {
         }
 
     }
-/*    @RequestMapping(value = {"/logout"}, method = RequestMethod.GET)
-    public String logoutDo(HttpServletRequest request,HttpServletResponse response){
-        HttpSession session= request.getSession(false);
-        SecurityContextHolder.clearContext();
-        session= request.getSession(false);
-        if(session != null) {
-            session.invalidate();
-        }
-        for(Cookie cookie : request.getCookies()) {
-            cookie.setMaxAge(0);
-        }
-
-        return "home";
-    }*/
-/*    @RequestMapping("/logout")
-    public String logout() {
-        return "redirect:/";
-    }*/
 }

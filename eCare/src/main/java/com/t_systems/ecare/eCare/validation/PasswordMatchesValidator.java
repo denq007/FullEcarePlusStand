@@ -10,6 +10,7 @@ public class PasswordMatchesValidator implements ConstraintValidator<ValidPasswo
     private Matcher matcher;
     private static final String PASSWORD_PATTERN = "^[a-zA-Z0-9]{3,10}$";
     @Override
+
     public void initialize(ValidPassword constraintAnnotation) {
     }
 

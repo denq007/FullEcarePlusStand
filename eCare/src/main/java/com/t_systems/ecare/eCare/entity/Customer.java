@@ -20,7 +20,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @OneToOne(cascade =CascadeType.ALL)//{CascadeType.PERSIST,CascadeType.MERGE, CascadeType.REFRESH,CascadeType.DETACH},fetch = FetchType.EAGER)//mappedBy = "id",cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.REFRESH,CascadeType.DETACH}
+    @OneToOne(cascade =CascadeType.ALL)
     @JoinColumn(name="user_id",referencedColumnName = "id")
     private User user;
     @Column(name = "name")

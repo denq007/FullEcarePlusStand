@@ -16,6 +16,7 @@ import java.util.Optional;
 
 @Controller
 public class OptionController {
+    public static final String CREATE_OPTION = "option/createOption";
     @Autowired
     TariffService tariffService;
     @Autowired
@@ -27,7 +28,7 @@ public class OptionController {
     {
         OptionDTO option=new OptionDTO();
         model.addAttribute("option",option);
-        return "option/createOption";
+        return CREATE_OPTION;
     }
     @PostMapping("/employee/create-option")
     public String createOption(@ModelAttribute("option") @Valid OptionDTO optionDTO, Model model, RedirectAttributes attr)
@@ -35,7 +36,7 @@ public class OptionController {
         Optional<String> error = optionService.saveOption(optionDTO);
         if (error.isPresent()) {
             model.addAttribute("message", error.get());
-            return "option/createOption";
+            return CREATE_OPTION;
         }
         attr.addAttribute("name", optionDTO.getOptionName());
         return "redirect:/show-all-options";
@@ -67,7 +68,7 @@ public class OptionController {
         Optional<String> error = optionService.update(dto);
         if (error.isPresent()) {
             model.addAttribute("message", error);
-            return "option/createOption";
+            return CREATE_OPTION;
         }
         return "redirect:/show-all-options";
     }

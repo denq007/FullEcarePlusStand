@@ -20,8 +20,8 @@ public class PhoneNumberServiceImpl implements PhoneNumberService{
     public long createphoneNumber() {
         PhoneNumber phoneNumber=new PhoneNumber();
         phoneNumberDAO.save1(phoneNumber);
-        phoneNumber.setPhoneNumber(phoneNumber.getId());
+        phoneNumber.setPhone(phoneNumber.getId());
         phoneNumberDAO.update(phoneNumber);
-        return phoneNumber.getPhoneNumber();
+        return phoneNumber.getPhone();
     }
 }

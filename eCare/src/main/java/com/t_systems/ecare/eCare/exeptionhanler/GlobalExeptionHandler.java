@@ -14,24 +14,27 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class GlobalExeptionHandler extends DefaultHandlerExceptionResolver{
 
+    public static final String ERROR_ACCESS_PAGE = "errorAccessPage";
+    public static final String MESSAGE = "message";
+
     @ExceptionHandler(RuntimeException.class)
     public ModelAndView handleException(HttpServletRequest request, Exception ex) {
-        ModelAndView model = new ModelAndView("errorAccessPage");
-        model.addObject("message", "Check the correctness of the entered data");
+        ModelAndView model = new ModelAndView(ERROR_ACCESS_PAGE);
+        model.addObject(MESSAGE, "Check the correctness of the entered data");
         return model;
     }
     @ExceptionHandler(NoHandlerFoundException.class)
     public String handleNoHandlerFoundException(NoHandlerFoundException ex) {
-        return "errorAccessPage";
+        return ERROR_ACCESS_PAGE;
     }
 
     @ExceptionHandler(NumberFormatException.class)
     public ModelAndView handleNumberFormatException(HttpServletRequest req,NumberFormatException ex)
     {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("message", "Check the correctness of the entered data");
+        mav.addObject(MESSAGE, "Check the correctness of the entered data");
         mav.addObject("url", req.getRequestURL());
-        mav.setViewName("errorAccessPage");
+        mav.setViewName(ERROR_ACCESS_PAGE);
         return mav;
     }
 
@@ -40,9 +43,9 @@ public class GlobalExeptionHandler extends DefaultHandlerExceptionResolver{
         if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null)
             throw e;
         ModelAndView mav = new ModelAndView();
-        mav.addObject("message", "We are already working on fixing this error");
+        mav.addObject(MESSAGE, "We are already working on fixing this error");
         mav.addObject("url", req.getRequestURL());
-        mav.setViewName("errorAccessPage");
+        mav.setViewName(ERROR_ACCESS_PAGE);
         return mav;
     }
 }

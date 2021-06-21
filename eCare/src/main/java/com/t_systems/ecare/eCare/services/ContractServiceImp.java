@@ -56,8 +56,7 @@ public class ContractServiceImp implements ContractService {
      */
     @Override
     public Contract convertToEntity(ContractDTO contractDTO) {
-        Contract contract = modelMapper.map(contractDTO, Contract.class);
-        return contract;
+        return modelMapper.map(contractDTO, Contract.class);
     }
 
     /**
@@ -83,7 +82,6 @@ public class ContractServiceImp implements ContractService {
         contract.setBlockedByUser(dto.isBlockedByUser());
         contract.setBlockedByAdmin(dto.isBlockedByAdmin());
         Set<Option> set = contract.getAddOptionIdList();
-        Set<Integer> wer = dto.getOptionsIds();
         set.addAll(dto.getOptionsIds().stream().map(s -> optionDAO.findOne(s)).collect(Collectors.toSet()));
         contract.setAddOptionIdList(set);
         contractDAO.update(contract);
@@ -132,7 +130,6 @@ public class ContractServiceImp implements ContractService {
         contract.setTariffId(tariff);
         contract.setBlockedByUser(contractDTO.isBlockedByUser());
         contract.setBlockedByAdmin(contractDTO.isBlockedByAdmin());
-        // contract.setCustomerId(customerService.convertToEntity(customerService.findById(contractDTO.getCustomerId())));
         contract.setCustomerId(customerDAO.findOne(contractDTO.getCustomerId()));
         contract.setNumber(contractDTO.getNumber());
         Optional<String> error = optionService.checkCompatibilityOptions(contractDTO.getOptionsIds(), tariff.getOptionIdList(), contract.getAddOptionIdList());

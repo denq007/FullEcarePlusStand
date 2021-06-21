@@ -145,7 +145,6 @@ public class TariffServiceImpl implements TariffService {
     }
 
 
-
     /**
      * Requests last added tariffs in (@link TarifDAO) database
      *
@@ -193,14 +192,6 @@ public class TariffServiceImpl implements TariffService {
         hotTariffService.sendMessage();
         return Optional.empty();
     }
-
- /*   public Optional<String> checkRepeatOption(List<Option> listOld, List<Option> listNew) {
-        for (int i = 0; i < listNew.size(); i++) {
-            if (listOld.contains(listNew.get(i)))
-                return Optional.of("This option is already added -" + listNew.get(i));
-        }
-        return Optional.empty();
-    }*/
 
     /**
      * Transforms the TariffDTO to Tariff
@@ -251,8 +242,8 @@ public class TariffServiceImpl implements TariffService {
         boolean b = true;
         Map<Integer, List<Option>> map = optionList.stream()
                 .collect(Collectors.groupingBy(Option::getNumberGroup, Collectors.toList()));
-        for (Integer i : map.keySet()) {
-            if (map.get(i).size() > 1 && i != 0) {
+        for (Map.Entry<Integer, List<Option>> i : map.entrySet()) {
+            if (i.getValue().size() > 1 &&  i.getKey()!= 0) {
                 b = false;
                 break;
             }
@@ -262,6 +253,7 @@ public class TariffServiceImpl implements TariffService {
 
     /**
      * Add additional data into tariff data transfer object
+     *
      * @param listId
      * @return list of {@code Option}
      */
@@ -277,6 +269,7 @@ public class TariffServiceImpl implements TariffService {
 
     /**
      * For pagination
+     *
      * @param page
      * @return
      */
@@ -288,6 +281,7 @@ public class TariffServiceImpl implements TariffService {
 
     /**
      * For pagination
+     *
      * @return
      */
     @Override

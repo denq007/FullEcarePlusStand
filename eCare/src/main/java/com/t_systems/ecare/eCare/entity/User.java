@@ -30,10 +30,6 @@ public class User {
     @Column(name = "roles")
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
- /*   public User() {
-      *//*  roles=new HashSet<>();
-        roles.add(Role.CUSTOMER);*//*
-    }*/
 
     public void setRole(Role roles) {
         if(this.roles==null)

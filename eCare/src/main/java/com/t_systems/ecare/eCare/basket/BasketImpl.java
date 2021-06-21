@@ -36,8 +36,7 @@ public class BasketImpl implements Basket {
     private String tariffDescription;
     @Autowired
     TariffService tariffService;
-  /*  @Autowired
-    OptionDAO optionDAO;*/
+
     @Override
     public BasketImpl createBasket(ContractDTO dto) {
         BasketImpl basket = new BasketImpl();
@@ -57,25 +56,23 @@ public class BasketImpl implements Basket {
     public Optional<String> update(BasketImpl currentBasket, BasketImpl basket) {
         if (basket.NewTariffId != 0)
             currentBasket.setTariffId(basket.NewTariffId);
-       currentBasket.getOptionsIds().add(basket.getOptionsIds().stream().iterator().next());
-       List<Integer> listId=new ArrayList<>();
-       listId.addAll(currentBasket.getOptionsIds());
-        TariffServiceImpl tariffService=new TariffServiceImpl();
-        List<Option> list=new ArrayList<>()/*tariffService.getOptionsById(listId)*/;
-        OptionDAOImp optionDAOImp=new OptionDAOImp();
-        list.addAll(listId.stream().map(s->optionDAOImp.findOne(s)).collect(Collectors.toList()));
-        boolean b=tariffService.checkOptionsCompatibility(list);
-      if(b)
-      return Optional.of("Incompatible options are selected");
-      return Optional.empty();
+        currentBasket.getOptionsIds().add(basket.getOptionsIds().stream().iterator().next());
+        List<Integer> listId = new ArrayList<>();
+        listId.addAll(currentBasket.getOptionsIds());
+        TariffServiceImpl service = new TariffServiceImpl();
+        List<Option> list = new ArrayList<>();
+        OptionDAOImp optionDAOImp = new OptionDAOImp();
+        list.addAll(listId.stream().map(s -> optionDAOImp.findOne(s)).collect(Collectors.toList()));
+        if (service.checkOptionsCompatibility(list))
+            return Optional.of("Incompatible options are selected");
+        return Optional.empty();
     }
 
     @Override
     public Optional<String> checkOptions() {
-        List<Option> list=new ArrayList<>();
-        list= this.tariffService.getOptionsById(this.getOptionsIds().stream().collect(Collectors.toList()));
-       boolean b= this.tariffService.checkOptionsCompatibility(list);
-        if(!b)
+        List<Option> list = this.tariffService.getOptionsById(this.getOptionsIds().stream().collect(Collectors.toList()));
+        boolean b = this.tariffService.checkOptionsCompatibility(list);
+        if (!b)
             return Optional.of("Incompatible options are selected");
         return Optional.empty();
     }

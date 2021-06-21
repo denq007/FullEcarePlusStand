@@ -39,12 +39,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-
                 .authorizeRequests()
-                .antMatchers("/","/registration","/showallcustomer","/saveCustomer","/saveUser","/employee/**","/contract/**","/show-tariff").permitAll()
-                //.anyRequest().authenticated()
-              //  .antMatchers().hasRole("ANONYMOUS")
-               // .anonymous()
+                .antMatchers("/","/registration","/showallcustomer","/saveCustomer","/saveUser","/contract/**","/show-tariff").permitAll()
                 .antMatchers("/customer/**").hasRole("CUSTOMER")
                 .antMatchers("/employee/**").hasRole("EMPLOYEE")
                 .and()
@@ -56,16 +52,6 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll().and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/").deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true);
-        // .and()
-               // .logout().logoutUrl("/logout").permitAll().logoutSuccessUrl("/").deleteCookies("auth_code", "JSESSIONID").invalidateHttpSession(true)
-               /* .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/").deleteCookies("JSESSIONID")
-                .invalidateHttpSession(true);*/
-
-               /* .and()
-                .exceptionHandling().accessDeniedPage("/errorAccessPage");*/
-
-
     }
 
     @Override

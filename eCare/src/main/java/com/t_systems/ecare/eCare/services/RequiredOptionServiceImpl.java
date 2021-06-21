@@ -32,13 +32,6 @@ public class RequiredOptionServiceImpl implements RequiredOptionService{
         return requiredOptionDTO;
     }
 
-
-    /*@Override
-    public RequiredOption convertToEntity(RequiredOptionDTO requiredOptionDTO) {
-        RequiredOption requiredOption=modelMapper.map(requiredOptionDTO,RequiredOption.class);
-        return null;
-    }*/
-
     /**
      * Requests all requiredoptions in (@link requiredOptionDAO) database.
      * @return map of {@code Integer,@Code RequiredOptionDTO},map will contain a list of options and their group numbers

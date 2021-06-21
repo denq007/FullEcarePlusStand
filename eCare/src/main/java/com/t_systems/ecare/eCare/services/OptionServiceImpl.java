@@ -89,7 +89,7 @@ public class OptionServiceImpl implements OptionService {
             list.add(optionDAO.findOne(onlyNewOption.get(i)));
         }
         list.removeAll(contractOptions);
-        if(list.size()==0)
+        if(list.isEmpty())
         {
             return Optional.of("You already have all these options");
         }
@@ -98,11 +98,11 @@ public class OptionServiceImpl implements OptionService {
         list.stream().filter(s -> s.getNumberGroup() != 0).collect(Collectors.toSet());
         Map<Integer, Set<Option>> map2 = list.stream()
                 .collect(Collectors.groupingBy(Option::getNumberGroup, Collectors.toSet()));
-        for (Integer a : map2.keySet()) {
+        for (Map.Entry<Integer, Set<Option>> entry: map2.entrySet()) {
             String str = "";
-            Set<Option> set1 = map2.get(a);
+            Set<Option> set1 = entry.getValue();
             if (set1.size() > 1) {
-                Iterator<Option> itr = map2.get(a).iterator();
+                Iterator<Option> itr = entry.getValue().iterator();
                 while (itr.hasNext()) {
                     str += itr.next().getName() + " and ";
                 }
@@ -163,7 +163,6 @@ public class OptionServiceImpl implements OptionService {
         option.setName(dto.getOptionName());
         option.setConnectionCost(dto.getOptionConnectionCost());
         option.setNumberGroup(dto.getOptionGroupNumber());
-       // option.setTariffsList(dto.getListTariff().stream().map(s->tariffService.convertToEntity(s)).collect(Collectors.toList()));
         optionDAO.update(option);
         return Optional.empty();
     }

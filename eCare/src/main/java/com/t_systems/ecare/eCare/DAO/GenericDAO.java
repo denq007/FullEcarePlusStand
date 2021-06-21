@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+
 @Repository
 public class GenericDAO<T> implements IGenericDAO<T> {
 
@@ -24,8 +25,7 @@ public class GenericDAO<T> implements IGenericDAO<T> {
 
     @Override
     public Long count() {
-        Query query = sessionFactory.getCurrentSession().createQuery("select count(*) from " + clazz.getName());
-        return (Long) query.uniqueResult();
+        return (Long) sessionFactory.getCurrentSession().createQuery("select count(*) from " + clazz.getName()).uniqueResult();
     }
 
     @Override
@@ -60,7 +60,7 @@ public class GenericDAO<T> implements IGenericDAO<T> {
 
     @Override
     public void save1(T entity) {
-       sessionFactory.getCurrentSession().save(entity);
+        sessionFactory.getCurrentSession().save(entity);
     }
 
     @Override

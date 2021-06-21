@@ -6,15 +6,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class RequiredOptionDAOImpl extends GenericDAO<RequiredOption> implements RequiredOptionDAO{
+public class RequiredOptionDAOImpl extends GenericDAO<RequiredOption> implements RequiredOptionDAO {
     @Autowired
     public void setClass() {
         this.setClass(RequiredOption.class);
     }
-
-  /*  @Override
-    @Transactional
-    public List<Object[]> getAllOptionNamesAndGroupIds() {
-        return sessionFactory.getCurrentSession().createQuery("select o.groupId,o.name from RequiredOption o", Object[].class).getResultList();
-    }*/
 }

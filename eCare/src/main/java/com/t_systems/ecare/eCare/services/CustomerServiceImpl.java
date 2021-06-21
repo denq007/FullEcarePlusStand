@@ -43,7 +43,6 @@ public class CustomerServiceImpl implements CustomerService{
      */
     public Customer convertToEntity(CustomerDTO customerDTO) {
         Customer customer = modelMapper.map(customerDTO, Customer.class);
-       /* userEntity.setPassword(passwordEncoder.encode(userDto.getPassword()));*/
         return customer;
     }
 

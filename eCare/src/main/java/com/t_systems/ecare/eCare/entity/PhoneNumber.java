@@ -18,5 +18,5 @@ public class PhoneNumber {
     private long id;
 
     @Column(name = "nextPhonenumber")
-    private long phoneNumber;
+    private long phone;
 }

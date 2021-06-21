@@ -16,6 +16,7 @@ import java.util.List;
 @RequestMapping("/employee")
 public class ManagerController {
 
+    public static final String REDIRECT_CUSTOMER_SHOWCUSTOMER = "redirect:/customer/showcustomer";
     @Autowired
     private ManagerService managerService ;
     @Autowired
@@ -70,14 +71,14 @@ public class ManagerController {
     public String blockContract(@RequestParam("id") int id, Model model) {
         int idCustomer=userService.blockByEmployee(id);
         model.addAttribute("id",idCustomer);
-        return "redirect:/customer/showcustomer";
+        return REDIRECT_CUSTOMER_SHOWCUSTOMER;
     }
 
     @GetMapping("/user/unblock")
     public String unblockContract(@RequestParam("id") int id, Model model) {
         int idCustomer=userService.unblockByEmployee(id);
         model.addAttribute("id",idCustomer);
-        return "redirect:/customer/showcustomer";
+        return REDIRECT_CUSTOMER_SHOWCUSTOMER;
     }
 
     @GetMapping("/findClientByPhoneNumber")
@@ -90,7 +91,7 @@ public class ManagerController {
         }
         else {
             model.addAttribute("id", customerDTO.getId());
-            return "redirect:/customer/showcustomer";
+            return REDIRECT_CUSTOMER_SHOWCUSTOMER;
         }
     }
 
