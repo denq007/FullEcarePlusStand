@@ -1,6 +1,5 @@
 language: java
 sudo: false
-os: linux
 jdk: oraclejdk14w
 cache:
   directories:
