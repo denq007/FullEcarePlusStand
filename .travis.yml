@@ -1,7 +1,2 @@
 language: java
-sudo: false
 jdk: oraclejdk14
-install:
-cache:
-  directories:
-    - $HOME/.m2
