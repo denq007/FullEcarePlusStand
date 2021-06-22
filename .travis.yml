@@ -1,3 +1,4 @@
 language: java
 jdk: oraclejdk14
 script: "$JOB"
+- ./mvnw clean install -B
