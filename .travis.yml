@@ -1,9 +1,7 @@
 language: java
 sudo: false
 os: linux
-jdk: oraclejdk14
-install:
-script: ./build.sh
+jdk: oraclejdk14w
 cache:
   directories:
     - $HOME/.m2
