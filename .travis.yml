@@ -1,11 +1,9 @@
 language: java
-jdk:
-  - oraclejdk14
-    cache:
-      directories:
-        - $HOME/.m2
-
-    script:
-      - java --version
-      - ./mvnw clean install
-      - ./mvnw test
+sudo: false
+os: linux
+jdk: oraclejdk14
+install:
+script: ./build.sh
+cache:
+  directories:
+    - $HOME/.m2
