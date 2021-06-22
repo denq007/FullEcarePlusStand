@@ -122,6 +122,36 @@
                                 <%-- <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">--%>
                         </div>
 
+                        <c:if test="${not empty contract.tariffName}">
+                        <div class="col-12">
+                            <tr>
+                                <td>Your tariff - ${contract.tariffName} </td>
+                            </tr>
+                        </div>
+                        </c:if>
+
+                        <div class="col-12">
+                            <table>
+                                <tr>
+                                    <th>    <h4 class="mb-3">Names of additional options:</h4></th>
+                                        <%-- <th>Names of additional options--%>
+                                </tr>
+                                <c:if test="${empty contract.addNameOptions}">
+                                    <tr>
+                                        <td>Without additional options</td>
+                                    </tr>
+                                </c:if>
+                                <c:if test="${not empty contract.addNameOptions}">
+                                <c:forEach var="addNameOptions" items="${contract.addNameOptions}">
+                                    <tr>
+                                        <td>${addNameOptions}</td>
+                                    </tr>
+                                </c:forEach>
+                                </c:if>
+                            </table>
+                        </div>
+
+
                         <div class="form-group">
                             <label for="tr" class="form-label">Tariffs: <span class="text-muted"></span></label>
                             <form:select path="tariffId" id="tr" class="selectpicker" required="required"

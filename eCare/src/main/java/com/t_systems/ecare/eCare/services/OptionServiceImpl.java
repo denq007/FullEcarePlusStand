@@ -23,6 +23,7 @@ public class OptionServiceImpl implements OptionService {
 
     /**
      * Create new {@code Option} based on dto properties
+     *
      * @param optionDTO data transfer object contains required properties
      * @return empty Optional if contract is successfully created or error message if not
      */
@@ -41,6 +42,7 @@ public class OptionServiceImpl implements OptionService {
 
     /**
      * Transforms the Option to OptionDTO
+     *
      * @param option database {@code Option} object
      * @return optionDTO (@code OptionDTO)
      */
@@ -51,6 +53,7 @@ public class OptionServiceImpl implements OptionService {
 
     /**
      * Transforms the OptionDTO to Option
+     *
      * @param optionDTO data transfer object
      * @return option (@code Option)
      */
@@ -61,6 +64,7 @@ public class OptionServiceImpl implements OptionService {
 
     /**
      * Requests all options in (@link OptionDAO) database
+     *
      * @return list of {@code ContractDTO}
      */
     @Override
@@ -72,9 +76,10 @@ public class OptionServiceImpl implements OptionService {
     /**
      * Checking the compatibility of options (@code Option).
      * Options must be from different groups (there can be any number of options with the group number - 0).
-     * @param idOptionforAdd new options for add
+     *
+     * @param idOptionforAdd   new options for add
      * @param tariffOptionList tariffs's options
-     * @param contractOptions contract's options
+     * @param contractOptions  contract's options
      * @return empty Optional if contract is successfully created or error message if not
      */
     //check id and group
@@ -89,33 +94,36 @@ public class OptionServiceImpl implements OptionService {
             list.add(optionDAO.findOne(onlyNewOption.get(i)));
         }
         list.removeAll(contractOptions);
-        if(list.isEmpty())
-        {
+        if (list.isEmpty()) {
             return Optional.of("You already have all these options");
         }
         list.addAll(tariffOptionList);
         list.addAll(contractOptions);
-        list.stream().filter(s -> s.getNumberGroup() != 0).collect(Collectors.toSet());
-        Map<Integer, Set<Option>> map2 = list.stream()
+        Set<Option> optionForCheck = list.stream().filter((s) -> s.getNumberGroup() != 0).collect(Collectors.toSet());
+        Map<Integer, Set<Option>> map2 = optionForCheck.stream()
                 .collect(Collectors.groupingBy(Option::getNumberGroup, Collectors.toSet()));
-        for (Map.Entry<Integer, Set<Option>> entry: map2.entrySet()) {
-            String str = "";
+        String str="";
+        for (Map.Entry<Integer, Set<Option>> entry : map2.entrySet()) {
+
             Set<Option> set1 = entry.getValue();
             if (set1.size() > 1) {
                 Iterator<Option> itr = entry.getValue().iterator();
                 while (itr.hasNext()) {
                     str += itr.next().getName() + " and ";
                 }
-                return Optional.of("You are trying to add incompatible options - " + str.substring(0, str.length() - 4) + " ");
             }
-        }
 
-        return Optional.empty();
+        }
+        if (str.isEmpty())
+            return Optional.empty();
+        else
+            return Optional.of("You are trying to add incompatible options - " + str.substring(0, str.length() - 4) + " ");
     }
 
     /**
      * Add additional data into contract data transfer object
-     * @param idOptionforAdd new options for add
+     *
+     * @param idOptionforAdd   new options for add
      * @param tariffOptionList tariffs's options
      * @return
      */
@@ -133,32 +141,32 @@ public class OptionServiceImpl implements OptionService {
 
     /**
      * Requests option by id (@link OptionDAO) in database
+     *
      * @param id database id of desired {@code Option} object
      * @return optionDTO (@code OptionDTO) object contains option properties
      */
     @Override
     @Transactional
     public OptionDTO findById(int id) {
-      return  convertToDto(optionDAO.findOne(id));
+        return convertToDto(optionDAO.findOne(id));
     }
 
     /**
      * Update all fields in corresponding {@code Option} with field values from data transfer object
+     *
      * @param dto data transfer object contains tariff id and properties
      * @return either empty Optional if contract is successfully updated or error message if not
      */
     @Override
     @Transactional
     public Optional<String> update(OptionDTO dto) {
-       Option option=optionDAO.findOne(dto.getOptionId());
-       if(option.getTariffsList().size()!=0)
-       {
-           return Optional.of("This option is used in the tariffs");
-       }
-       if(option.getContractList().size()!=0)
-       {
-           return Optional.of("This option is used in the contracts");
-       }
+        Option option = optionDAO.findOne(dto.getOptionId());
+        if (option.getTariffsList().size() != 0) {
+            return Optional.of("This option is used in the tariffs");
+        }
+        if (option.getContractList().size() != 0) {
+            return Optional.of("This option is used in the contracts");
+        }
         option.setPrice(dto.getOptionPrice());
         option.setName(dto.getOptionName());
         option.setConnectionCost(dto.getOptionConnectionCost());
@@ -170,13 +178,14 @@ public class OptionServiceImpl implements OptionService {
     /**
      * Add additional data into contract data transfer object
      * Requests options by id (@link OptionDAO) in database
+     *
      * @param id id of all options to be found
      * @return set of {@code String}
      */
     @Override
     @Transactional
     public Set<String> getOptionsNameById(Set<Integer> id) {
-      return  (id.stream().map(s->optionDAO.findOne(s).getName())).collect(Collectors.toSet());
+        return (id.stream().map(s -> optionDAO.findOne(s).getName())).collect(Collectors.toSet());
     }
 
 

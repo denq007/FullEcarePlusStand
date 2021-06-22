@@ -63,6 +63,7 @@
               <%if(userRole.equals("user")){%>
               <jsp:include page="../menu/user_menu.jsp" />
               <%}%>--%>
+
             <sec:authorize access="!hasRole('EMPLOYEE')">
             <a class="me-3 py-2 text-dark text-decoration-none" href="/customer/showcustomerinformation">Cabinet</a>
             </sec:authorize>
@@ -102,7 +103,7 @@
             <div class="col">
                 <div class="card mb-4 rounded-3 shadow-sm">
                     <div class="card-header py-3">
-                        <h4 class="my-0 fw-normal">Second</h4>
+                        <h4 class="my-0 fw-normal">HotBlack</h4>
                     </div>
                     <div class="card-body">
                         <h1 class="card-title pricing-card-title">$5.5<small class="text-muted fw-light">/month</small></h1>
@@ -117,7 +118,7 @@
             <div class="col">
                 <div class="card mb-4 rounded-3 shadow-sm border-primary">
                     <div class="card-header py-3 text-white bg-primary border-primary">
-                        <h4 class="my-0 fw-normal">third</h4>
+                        <h4 class="my-0 fw-normal">HotBlue</h4>
                     </div>
                     <div class="card-body">
                         <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/month</small></h1>

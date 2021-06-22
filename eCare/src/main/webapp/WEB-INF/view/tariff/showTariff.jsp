@@ -55,11 +55,16 @@
     <jsp:include page="../header.jsp" />
 </head>
 <body class="bg-light">
+<sec:authorize access="!isAuthenticated()">
+    <span class="pull-right"><a href="/" class="btn btn-primary btn-lg" role="button">Back</a></span>
+</sec:authorize>
+<sec:authorize access="isAuthenticated()">
 <sec:authorize access="hasRole('EMPLOYEE')">
     <span class="pull-right"><a href="/employee/employeecabinet" class="btn btn-primary btn-lg" role="button">Back</a></span>
 </sec:authorize>
 <sec:authorize access="!hasRole('EMPLOYEE')">
     <span class="pull-right"><a href="/customer/showcustomerinformation" class="btn btn-primary btn-lg" role="button">Back</a></span>
+</sec:authorize>
 </sec:authorize>
 <div class="container">
     <main>

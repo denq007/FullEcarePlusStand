@@ -47,7 +47,8 @@ public class UserController {
         Optional<String> error=userService.saveUser(user);
         if (error.isPresent()) {
             model.addAttribute("message", error.get());
-            return "login";
+            model.addAttribute("user",new UserDTO());
+            return "registrationUser";
         }
         attr.addAttribute("login",user.getUserLogin());
         return "redirect:/employee/showcustomerinformation/{}";
