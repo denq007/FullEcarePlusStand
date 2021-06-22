@@ -1,5 +1,4 @@
 language: java
 jdk: oraclejdk14
-script: ant test -lib ./lib/junit-4.12.jar
 before_script:
   - sudo apt-get install ant-optional
