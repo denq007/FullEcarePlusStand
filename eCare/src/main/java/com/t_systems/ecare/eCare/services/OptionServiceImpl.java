@@ -93,6 +93,7 @@ public class OptionServiceImpl implements OptionService {
         for (int i = 0; i < onlyNewOption.size(); i++) {
             list.add(optionDAO.findOne(onlyNewOption.get(i)));
         }
+        Set<Option> copyContractOptions=new HashSet<>();
         list.removeAll(contractOptions);
         if (list.isEmpty()) {
             return Optional.of("You already have all these options");
